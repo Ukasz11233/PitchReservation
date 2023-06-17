@@ -46,11 +46,30 @@ namespace RezerwacjaBoiska.Controllers
             return View(opinie);
         }
 
+        private void PopulateGraczeDropDownList(object selectedGracz = null)
+        {
+            var wybraniGracze = from e in _context.Gracz
+                                orderby e.Imie
+                                select e;
+            var res = wybraniGracze.AsNoTracking();
+            ViewBag.GraczeID = new SelectList(res, "Id", "Imie", selectedGracz);
+        }
+
+        private void PopulateBoiskaDropDownList(object selectedBoisko = null)
+        {
+            var wybraneBoiska = from e in _context.Boiska
+                                orderby e.Nazwa
+                                select e;
+            var res = wybraneBoiska.AsNoTracking();
+            ViewBag.BoiskaID = new SelectList(res, "Id", "Nazwa", selectedBoisko);
+        }
         // GET: Opinie/Create
         public IActionResult Create()
         {
             var availableGrades = Enum.GetNames(typeof(OcenaBoiska));
             ViewBag.availableGrades = new SelectList(availableGrades);
+            PopulateGraczeDropDownList();
+            PopulateBoiskaDropDownList();
             return View();
         }
 
@@ -59,10 +78,31 @@ namespace RezerwacjaBoiska.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Ocena,Komentarz,DataDodania")] Opinie opinie)
+        public async Task<IActionResult> Create([Bind("Id,Ocena,Komentarz,DataDodania")] Opinie opinie,
+        IFormCollection form)
         {
+            string autorValue = form["Autor"].ToString();
+            string boiskoValue = form["Boisko"].ToString();
             if (ModelState.IsValid)
             {
+                Gracz autor = null;
+                if (autorValue != "-1")
+                {
+                    var ee = _context.Gracz.Where(e => e.Id == int.Parse(autorValue));
+                    if (ee.Count() > 0)
+                        autor = ee.First();
+                }
+                Boiska boisko = null;
+                if (boiskoValue != "-1")
+                {
+                    var ee = _context.Boiska.Where(e => e.Id == int.Parse(boiskoValue));
+                    if (ee.Count() > 0)
+                        boisko = ee.First();
+                }
+                opinie.Autor = autor;
+                opinie.Boisko = boisko;
+                opinie.DataDodania = DateTime.Today;
+
                 _context.Add(opinie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
