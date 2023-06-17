@@ -178,7 +178,7 @@ namespace RezerwacjaBoiska.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DataRezrwacji,GodzinaRozpoczecia,GodzinaZakonczenia,Status")] Rezerwacje rezerwacje,
+        public async Task<IActionResult> Edit(int id, [Bind("Id,DataRezerwacji,GodzinaRozpoczecia,GodzinaZakonczenia,Status")] Rezerwacje rezerwacje,
         IFormCollection form)
         {
             if (id != rezerwacje.Id)

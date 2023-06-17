@@ -57,7 +57,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Wróc do listy</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
@@ -67,8 +67,8 @@
             $("#editForm").submit(function (e) {
                 var godzinaRozpoczecia = $("#GodzinaRozpoczecia").val();
                 var godzinaZakonczenia = $("#GodzinaZakonczenia").val();
-                var rozpoczecie = new Date("2000-01-01 " + godzinaRozpoczecia);
-                var zakonczenie = new Date("2000-01-01 " + godzinaZakonczenia);
+                var rozpoczecie = new Date("2001-01-01 " + godzinaRozpoczecia);
+                var zakonczenie = new Date("2001-01-01 " + godzinaZakonczenia);
                 
                 if (zakonczenie <= rozpoczecie || Math.abs(zakonczenie - rozpoczecie) < 3600000) {
                     e.preventDefault();
