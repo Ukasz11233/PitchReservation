@@ -22,8 +22,9 @@ namespace RezerwacjaBoiska.Controllers
         // GET: Opinie
         public async Task<IActionResult> Index()
         {
+            var rezerwacja = _context.Opinie.Include(p => p.Autor).Include(p => p.Boisko).AsNoTracking();
               return _context.Opinie != null ? 
-                          View(await _context.Opinie.ToListAsync()) :
+                          View(await rezerwacja.ToListAsync()) :
                           Problem("Entity set 'RezerwacjaBoiskaContext.Opinie'  is null.");
         }
 
@@ -48,6 +49,8 @@ namespace RezerwacjaBoiska.Controllers
         // GET: Opinie/Create
         public IActionResult Create()
         {
+            var availableGrades = Enum.GetNames(typeof(OcenaBoiska));
+            ViewBag.availableGrades = new SelectList(availableGrades);
             return View();
         }
 

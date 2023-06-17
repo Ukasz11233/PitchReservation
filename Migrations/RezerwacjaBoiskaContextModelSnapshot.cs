@@ -77,15 +77,14 @@ namespace RezerwacjaBoiska.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("BoiskaId")
+                    b.Property<int?>("AutorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("DataDodania")
-                        .IsRequired()
+                    b.Property<int?>("BoiskoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataDodania")
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("GraczeId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Komentarz")
                         .IsRequired()
@@ -96,9 +95,9 @@ namespace RezerwacjaBoiska.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BoiskaId");
+                    b.HasIndex("AutorId");
 
-                    b.HasIndex("GraczeId");
+                    b.HasIndex("BoiskoId");
 
                     b.ToTable("Opinie");
                 });
@@ -138,17 +137,17 @@ namespace RezerwacjaBoiska.Migrations
 
             modelBuilder.Entity("RezerwacjaBoiska.Models.Opinie", b =>
                 {
-                    b.HasOne("RezerwacjaBoiska.Models.Boiska", "Boiska")
+                    b.HasOne("RezerwacjaBoiska.Models.Gracz", "Autor")
                         .WithMany()
-                        .HasForeignKey("BoiskaId");
+                        .HasForeignKey("AutorId");
 
-                    b.HasOne("RezerwacjaBoiska.Models.Gracz", "Gracze")
+                    b.HasOne("RezerwacjaBoiska.Models.Boiska", "Boisko")
                         .WithMany()
-                        .HasForeignKey("GraczeId");
+                        .HasForeignKey("BoiskoId");
 
-                    b.Navigation("Boiska");
+                    b.Navigation("Autor");
 
-                    b.Navigation("Gracze");
+                    b.Navigation("Boisko");
                 });
 
             modelBuilder.Entity("RezerwacjaBoiska.Models.Rezerwacje", b =>

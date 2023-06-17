@@ -2,18 +2,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RezerwacjaBoiska.Models
 {
-        public enum OcenaBoiska
-{
-    [Display(Name = "Slabe")]
-    Slabe,
-    
-    [Display(Name = "Ok")]
-    Ok,
-    
-    [Display(Name = "Dobre")]
-    Dobre,
-    
-}    
+    public enum OcenaBoiska
+    {
+        [Display(Name = "Slabe")]
+        Slabe,
+        
+        [Display(Name = "Ok")]
+        Ok,
+        
+        [Display(Name = "Dobre")]
+        Dobre,
+        
+    }    
     public class Opinie
     {
         [Key]
@@ -25,8 +25,8 @@ namespace RezerwacjaBoiska.Models
         [Display(Name = "Data dodania")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 
-        public String DataDodania { get; set; }
-        public Gracz? Gracze { get; set; }
-        public Boiska? Boiska { get; set; }
+        public DateTime DataDodania { get; set; }
+        public Gracz? Autor { get; set; }
+        public Boiska? Boisko { get; set; }
     }
 }

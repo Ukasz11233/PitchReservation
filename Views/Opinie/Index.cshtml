@@ -1,10 +1,10 @@
 @model IEnumerable<RezerwacjaBoiska.Models.Opinie>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Opinions";
 }
 
-<h1>Index</h1>
+<h1>Opinions</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -20,6 +20,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DataDodania)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Autor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Boisko)
             </th>
             <th></th>
         </tr>
@@ -37,6 +43,13 @@
                 @Html.DisplayFor(modelItem => item.DataDodania)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Autor.Imie)
+                @Html.DisplayFor(modelItem => item.Autor.Nazwisko)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Boisko.Nazwa)
+            </td>
+            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -45,3 +58,5 @@
 }
     </tbody>
 </table>
+
+<a href="/Home/Rezerwuj">Go to main panel</a>
