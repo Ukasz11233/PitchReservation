@@ -1,0 +1,76 @@
+@model dynamic
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<h2>Rezerwacje anulowane:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Data rezerwacji</th>
+            <th>Godzina rozpoczęcia</th>
+            <th>Godzina zakończenia</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rezerwacja in Model.RezerwacjeAnulowane)
+        {
+            <tr>
+                <td>@rezerwacja.DataRezerwacji.ToShortDateString()</td>
+                <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
+                <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
+                <td>@rezerwacja.Status.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Rezerwacje na dzisiaj:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Data rezerwacji</th>
+            <th>Godzina rozpoczęcia</th>
+            <th>Godzina zakończenia</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rezerwacja in Model.RezerwacjeDzisiaj)
+        {
+            <tr>
+                <td>@rezerwacja.DataRezerwacji.ToShortDateString()</td>
+                <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
+                <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
+                <td>@rezerwacja.Status.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Rezerwacje w trakcie:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Data rezerwacji</th>
+            <th>Godzina rozpoczęcia</th>
+            <th>Godzina zakończenia</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var rezerwacja in Model.RezerwacjeWTrakcie)
+        {
+            <tr>
+                <td>@rezerwacja.DataRezerwacji.ToShortDateString()</td>
+                <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
+                <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
+                <td>@rezerwacja.Status.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
