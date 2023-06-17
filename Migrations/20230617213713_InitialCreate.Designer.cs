@@ -11,7 +11,7 @@ using RezerwacjaBoiska.Data;
 namespace RezerwacjaBoiska.Migrations
 {
     [DbContext(typeof(RezerwacjaBoiskaContext))]
-    [Migration("20230617134952_InitialCreate")]
+    [Migration("20230617213713_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

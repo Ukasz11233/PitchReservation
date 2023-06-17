@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+<head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
 <h1>Index</h1>
 
 <p>
@@ -45,3 +49,19 @@
 }
     </tbody>
 </table>
+
+<a href="/Home/Rezerwuj">Go to main panel</a>
+
+@section Scripts {
+    <script>
+        // Sprawdź czy istnieje powiadomienie o nieudanym usuwaniu rekordu
+        var deleteFailedMessage = '@TempData["DeleteFailed"]';
+        if (deleteFailedMessage) {
+            swal({
+                title: "Delete Failed",
+                text: deleteFailedMessage,
+                icon: "error"
+            });
+        }
+    </script>
+}

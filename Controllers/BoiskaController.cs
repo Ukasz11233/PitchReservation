@@ -145,12 +145,19 @@ namespace RezerwacjaBoiska.Controllers
             {
                 return Problem("Entity set 'RezerwacjaBoiskaContext.Boiska'  is null.");
             }
-            var boiska = await _context.Boiska.FindAsync(id);
-            if (boiska != null)
+            var boisko = await _context.Boiska.FindAsync(id);
+            if (boisko == null)
             {
-                _context.Boiska.Remove(boiska);
+                return NotFound();
+            }
+            bool hasReferences = _context.Rezerwacje.Any(r => r.Boiska.Id == id);
+            if (hasReferences)
+            {
+                TempData["DeleteFailed"] = "Cannot delete the record because it is referenced elsewhere.";
+                return RedirectToAction(nameof(Index));
             }
             
+            _context.Boiska.Remove(boisko);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

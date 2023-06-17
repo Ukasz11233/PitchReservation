@@ -146,11 +146,19 @@ namespace RezerwacjaBoiska.Controllers
                 return Problem("Entity set 'RezerwacjaBoiskaContext.Gracz'  is null.");
             }
             var gracz = await _context.Gracz.FindAsync(id);
-            if (gracz != null)
+            if (gracz == null)
             {
-                _context.Gracz.Remove(gracz);
+                return NotFound();
             }
-            
+            bool hasReferences = _context.Rezerwacje.Any(r => r.Gracze.Id == id);
+            if (hasReferences)
+            {
+                // Wyświetl komunikat w formie okienka
+                TempData["DeleteFailed"] = "Cannot delete the record because it is referenced elsewhere.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            _context.Gracz.Remove(gracz);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

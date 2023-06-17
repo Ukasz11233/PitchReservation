@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" id="editForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -57,9 +57,24 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Wróc do listy</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+        $(document).ready(function () {
+            $("#editForm").submit(function (e) {
+                var godzinaRozpoczecia = $("#GodzinaRozpoczecia").val();
+                var godzinaZakonczenia = $("#GodzinaZakonczenia").val();
+                var rozpoczecie = new Date("2000-01-01 " + godzinaRozpoczecia);
+                var zakonczenie = new Date("2000-01-01 " + godzinaZakonczenia);
+                
+                if (zakonczenie <= rozpoczecie || Math.abs(zakonczenie - rozpoczecie) < 3600000) {
+                    e.preventDefault();
+                    alert("Godzina rozpoczęcia musi być wcześniejsza od godziny zakończenia, a różnica między nimi musi wynosić przynajmniej 1 godzinę.");
+                }
+            });
+        });
+    </script>
 }

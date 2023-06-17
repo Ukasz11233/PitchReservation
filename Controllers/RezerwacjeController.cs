@@ -35,7 +35,7 @@ namespace RezerwacjaBoiska.Controllers
                 .Where(r => r.Status == StatusRezerwacji.Anulowana)
                 .ToList();
             List<Rezerwacje> rezerwacjeWTrakcie = _context.Rezerwacje.Include(p => p.Boiska).Include(p => p.Gracze)
-                .Where(r => r.Status == StatusRezerwacji.WTrakcie)
+                .Where(r => r.Status == StatusRezerwacji.Trwa)
                 .ToList();
             List<Rezerwacje> rezerwacjeDzisiaj = _context.Rezerwacje.Include(p => p.Boiska).Include(p => p.Gracze)
                 .Where(r => r.DataRezerwacji.Date == dzisiaj)
@@ -92,8 +92,6 @@ namespace RezerwacjaBoiska.Controllers
         // GET: Rezerwacje/Create
         public IActionResult Create()
         {
-            var availableStatuses = Enum.GetNames(typeof(StatusRezerwacji));
-            ViewBag.AvailableStatuses = new SelectList(availableStatuses);
             PopulateGraczeDropDownList();
             PopulateBoiskaDropDownList();
             return View();
@@ -130,6 +128,7 @@ namespace RezerwacjaBoiska.Controllers
                 }
                 rezerwacje.Gracze = gracz;
                 rezerwacje.Boiska = boisko;
+                rezerwacje.Status = StatusRezerwacji.Oczekuje;
 
                 _context.Add(rezerwacje);
                 await _context.SaveChangesAsync();
@@ -141,7 +140,7 @@ namespace RezerwacjaBoiska.Controllers
         // GET: Rezerwacje/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var availableStatuses = Enum.GetNames(typeof(StatusRezerwacji));
+            var availableStatuses = Enum.GetNames(typeof(StatusRezerwacji)).Where(status => status != StatusRezerwacji.Oczekuje.ToString()).ToArray();
             ViewBag.AvailableStatuses = new SelectList(availableStatuses);
             if (id == null || _context.Rezerwacje == null)
             {

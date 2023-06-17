@@ -11,7 +11,9 @@ namespace RezerwacjaBoiska.Models
     Anulowana,
     
     [Display(Name = "W trakcie")]
-    WTrakcie
+    Trwa,
+    [Display(Name = "W oczekiwaniu")]
+    Oczekuje
 }
     public class Rezerwacje
     {
