@@ -37,6 +37,8 @@ namespace RezerwacjaBoiska.Controllers
             }
 
             var opinie = await _context.Opinie
+                .Include(p => p.Autor)
+                .Include(p => p.Boisko)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (opinie == null)
             {
@@ -113,15 +115,39 @@ namespace RezerwacjaBoiska.Controllers
         // GET: Opinie/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var availableGrades = Enum.GetNames(typeof(OcenaBoiska));
+            ViewBag.availableGrades = new SelectList(availableGrades);
             if (id == null || _context.Opinie == null)
             {
                 return NotFound();
             }
 
-            var opinie = await _context.Opinie.FindAsync(id);
+            var opinie = _context.Opinie.Where(p => p.Id == id)
+                .Include(p => p.Autor).Include(p => p.Boisko).First();
             if (opinie == null)
             {
                 return NotFound();
+            }
+             if (opinie == null)
+            {
+                return NotFound();
+            }
+            if(opinie.Autor != null)
+            {
+                PopulateGraczeDropDownList(opinie.Autor.Id);
+            }
+            else
+            {
+                PopulateGraczeDropDownList();
+            }
+
+            if(opinie.Boisko != null)
+            {
+                PopulateBoiskaDropDownList(opinie.Boisko.Id);
+            }
+            else
+            {
+                PopulateBoiskaDropDownList();
             }
             return View(opinie);
         }
@@ -131,7 +157,8 @@ namespace RezerwacjaBoiska.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Ocena,Komentarz,DataDodania")] Opinie opinie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Ocena,Komentarz,DataDodania")] Opinie opinie,
+         IFormCollection form)
         {
             if (id != opinie.Id)
             {
@@ -142,7 +169,36 @@ namespace RezerwacjaBoiska.Controllers
             {
                 try
                 {
-                    _context.Update(opinie);
+                    string autorValue = form["Autor"].ToString();
+                    string boiskoValue = form["Boisko"].ToString();
+                    Gracz autor = null;
+                    if (autorValue != "-1")
+                    {
+                        var ee = _context.Gracz.Where(e => e.Id == int.Parse(autorValue));
+                        if (ee.Count() > 0)
+                            autor = ee.First();
+                    }
+                    Boiska boisko = null;
+                    if (boiskoValue != "-1")
+                    {
+                        var ee = _context.Boiska.Where(e => e.Id == int.Parse(boiskoValue));
+                        if (ee.Count() > 0)
+                            boisko = ee.First();
+                    }
+                    opinie.Autor = autor;
+                    opinie.Boisko = boisko;
+                    opinie.DataDodania = DateTime.Today;
+
+                    Opinie oo = _context.Opinie.Where(p => p.Id == id)
+                    .Include(p => p.Boisko)
+                    .Include(p => p.Autor)
+                    .First();
+                    oo.Autor = autor;
+                    oo.Boisko = boisko;
+                    oo.DataDodania = opinie.DataDodania;
+                    oo.Ocena = opinie.Ocena;
+                    oo.Komentarz = opinie.Komentarz;
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

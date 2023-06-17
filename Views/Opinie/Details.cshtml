@@ -28,6 +28,17 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DataDodania)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Autor.Imie)
+            @Html.DisplayFor(model => model.Autor.Nazwisko)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Boisko)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Boisko.Nazwa)
     </dl>
 </div>
 <div>
