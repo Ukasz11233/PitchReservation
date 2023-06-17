@@ -30,8 +30,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <select asp-for="Status" class="form-control"></select>
+                <select asp-for="Status" class="form-control" asp-items="ViewBag.AvailableStatuses">
+                <option value="-1">-- Wybierz status --</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gracze" class="control-label"></label>
+                <select asp-for="Gracze" class="form-control" asp-items="ViewBag.GraczeID">
+                    <option value="-1">-- Wybierz gracza --</option>
+                </select>
+                <span asp-validation-for="Gracze" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Boiska" class="control-label"></label>
+                <select asp-for="Boiska" class="form-control" asp-items="ViewBag.BoiskaID">
+                    <option value="-1">-- Wybierz boisko --</option>
+                </select>
+                <span asp-validation-for="Boiska" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

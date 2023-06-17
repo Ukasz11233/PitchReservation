@@ -7,13 +7,15 @@
 </p>
 
 <h2>Rezerwacje anulowane:</h2>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Data rezerwacji</th>
             <th>Godzina rozpoczęcia</th>
             <th>Godzina zakończenia</th>
             <th>Status</th>
+            <th>Gracz</th>
+            <th>Boisko</th>
         </tr>
     </thead>
     <tbody>
@@ -24,19 +26,23 @@
                 <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
                 <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
                 <td>@rezerwacja.Status.ToString()</td>
+                <td>@(rezerwacja.Gracze?.Imie.ToString() ?? "brak")</td>
+                <td>@(rezerwacja.Boiska?.Nazwa.ToString() ?? "brak") </td>
             </tr>
         }
     </tbody>
 </table>
 
 <h2>Rezerwacje na dzisiaj:</h2>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Data rezerwacji</th>
             <th>Godzina rozpoczęcia</th>
             <th>Godzina zakończenia</th>
             <th>Status</th>
+            <th>Gracz</th>
+            <th>Boisko</th>
         </tr>
     </thead>
     <tbody>
@@ -47,19 +53,23 @@
                 <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
                 <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
                 <td>@rezerwacja.Status.ToString()</td>
+                <td>@(rezerwacja.Gracze?.Imie.ToString() ?? "brak")</td>
+                <td>@(rezerwacja.Boiska?.Nazwa.ToString() ?? "brak") </td>
             </tr>
         }
     </tbody>
 </table>
 
 <h2>Rezerwacje w trakcie:</h2>
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>Data rezerwacji</th>
             <th>Godzina rozpoczęcia</th>
             <th>Godzina zakończenia</th>
             <th>Status</th>
+            <th>Gracz</th>
+            <th>Boisko</th>
         </tr>
     </thead>
     <tbody>
@@ -70,6 +80,8 @@
                 <td>@rezerwacja.GodzinaRozpoczecia.ToShortTimeString()</td>
                 <td>@rezerwacja.GodzinaZakonczenia.ToShortTimeString()</td>
                 <td>@rezerwacja.Status.ToString()</td>
+                <td>@(rezerwacja.Gracze?.Imie.ToString() ?? "brak")</td>
+                <td>@(rezerwacja.Boiska?.Nazwa.ToString() ?? "brak") </td>
             </tr>
         }
     </tbody>

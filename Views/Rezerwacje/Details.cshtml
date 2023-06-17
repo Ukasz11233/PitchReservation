@@ -33,6 +33,16 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Status)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gracze)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gracze.Imie)
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Boiska)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Boiska.Nazwa)
         </dd>
     </dl>
 </div>
