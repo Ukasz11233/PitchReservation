@@ -108,8 +108,6 @@ namespace RezerwacjaBoiska.Controllers
         {
             string graczValue = form["Gracze"].ToString();
             string boiskoValue = form["Boiska"].ToString();
-            Console.WriteLine(graczValue);
-            Console.WriteLine(boiskoValue);
             if (ModelState.IsValid)
             {
                 Gracz gracz = null;

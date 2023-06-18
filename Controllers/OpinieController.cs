@@ -225,8 +225,10 @@ namespace RezerwacjaBoiska.Controllers
                 return NotFound();
             }
 
-            var opinie = await _context.Opinie
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var opinie = _context.Opinie
+                .Include(p => p.Autor)
+                .Include(p => p.Boisko)
+                .First();
             if (opinie == null)
             {
                 return NotFound();
