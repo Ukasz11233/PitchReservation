@@ -14,7 +14,7 @@ Dodatkowo, niemożliwe jest usunięcie gracza lub boiska, jeśli posiada ono ref
 Boisko musi być rezerwowane na conajmniej godzinę.
 
 ## Jak uruchmoic aplikację:
-Wystarczy, że w terminalu podamy komendę: __dotenet run__ 
+Wystarczy, że w terminalu podamy komendę: __dotenet run__ a następnie wchodzimy w przeglądarce internetwoej wpisując adres naszego lokalnego hosta: _http://localhost:5000_
 
 W razie niepowodzeń, zalecam usunięcie katalogu _Migrations_ oraz uruchomienie kolejno komend:
 __dotnet ef migrations add InitialCreate__  
