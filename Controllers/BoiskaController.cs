@@ -150,8 +150,9 @@ namespace RezerwacjaBoiska.Controllers
             {
                 return NotFound();
             }
-            bool hasReferences = _context.Rezerwacje.Any(r => r.Boiska.Id == id);
-            if (hasReferences)
+            bool hasReferencesInReservations = _context.Rezerwacje.Any(r => r.Boiska.Id == id);
+            bool hasReferencesInOpinions = _context.Opinie.Any(r => r.Boisko.Id == id);
+            if (hasReferencesInReservations || hasReferencesInOpinions)
             {
                 TempData["DeleteFailed"] = "Cannot delete the record because it is referenced elsewhere.";
                 return RedirectToAction(nameof(Index));
